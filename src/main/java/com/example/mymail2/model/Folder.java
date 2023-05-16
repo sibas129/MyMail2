@@ -21,14 +21,46 @@ public class Folder {
     @OneToMany(mappedBy = "folder", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Mail> mails = new HashSet<>();
 
+    public enum FolderType {
+        INBOX("Inbox"),
+        SENT("Sent"),
+        DRAFTS("Drafts"),
+        TRASH("Trash"),
+        SPAM("Spam");
+
+        private final String displayName;
+
+        FolderType(String displayName) {
+            this.displayName = displayName;
+        }
+
+        public String getDisplayName() {
+            return displayName;
+        }
+
+        public static FolderType fromDisplayName(String displayName) {
+            for (FolderType type : FolderType.values()) {
+                if (type.displayName.equals(displayName)) {
+                    return type;
+                }
+            }
+            throw new IllegalArgumentException("Invalid FolderType display name: " + displayName);
+        }
+    }
+
+    @Enumerated(EnumType.STRING)
+    @Column
+    private FolderType type;
+
     // Constructors, Getters, and Setters
 
     public Folder() {
     }
 
-    public Folder(User user, String name) {
+    public Folder(FolderType type, User user) {
+        this.type = type;
         this.user = user;
-        this.name = name;
+        this.name = type.getDisplayName();
     }
 
     public Long getId() {
@@ -53,6 +85,14 @@ public class Folder {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public FolderType getType() {
+        return type;
+    }
+
+    public void setType(FolderType type) {
+        this.type = type;
     }
 
     public Set<Mail> getMails() {

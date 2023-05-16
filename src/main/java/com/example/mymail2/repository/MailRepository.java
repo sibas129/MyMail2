@@ -13,4 +13,10 @@ public interface MailRepository extends JpaRepository<Mail, Long> {
     List<Mail> findBySender(User sender);
     List<Mail> findByRecipient(User recipient);
     List<Mail> findByFolder(Folder folder);
+
+    boolean saveMail(Mail mail);
+
+    boolean deleteMail(Mail mail);
+
+    void updateMail(Mail mail);
 }
