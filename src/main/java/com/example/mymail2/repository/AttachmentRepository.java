@@ -10,12 +10,4 @@ import java.util.List;
 @Repository
 public interface AttachmentRepository extends JpaRepository<Attachment, Long> {
     Attachment findByFilename(String filename);
-
-    Attachment getAttachmentById(Long id);
-
-    List<Attachment> getAttachmentsForMail(Mail mail);
-
-    Attachment uploadAttachment(Attachment attachment);
-
-    void deleteAttachment(Attachment attachment);
 }

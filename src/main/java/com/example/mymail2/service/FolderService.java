@@ -27,26 +27,26 @@ public class FolderService {
                 .collect(Collectors.toList());
     }
 
-//    public List<Folder> getFoldersForUser(User user) {
-//        return folderRepository.getFoldersForUser(user);
-//    }
-//
-//    public Folder createFolder(User user, String folderName) {
-//        Folder folder = new Folder(folderName, user);
-//        return folderRepository.createFolder(folder);
-//    }
+    public List<Folder> getFoldersForUser(User user) {
+        return folderRepository.findAllByUser(user);
+    }
+
+    public Folder createFolder(User user, String folderName) {
+        Folder folder = new Folder(folderName, user);
+        return folderRepository.save(folder);
+    }
 
     public void deleteFolder(User user, Folder folder) {
         List<Mail> mails = getMailsInFolder(user, folder);
         for (Mail mail : mails) {
             mail.getFolder().setId(null);
-            mailRepository.updateMail(mail);
+            mailRepository.save(mail);
         }
-        folderRepository.deleteFolder(folder);
+        folderRepository.delete(folder);
     }
 
     public void moveMailToFolder(Mail mail, Folder folder) {
         mail.getFolder().setId(folder.getId());
-        mailRepository.updateMail(mail);
+        mailRepository.save(mail);
     }
 }

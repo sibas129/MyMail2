@@ -15,33 +15,33 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody UserRegistrationDTO userDto) {
-        User user = userService.registerUser(userDto);
-        return ResponseEntity.ok("User registered successfully with ID: " + user.getId());
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestBody UserLoginDTO userDto) {
-        String token = userService.loginUser(userDto);
-        return ResponseEntity.ok(token);
-    }
-
-    @PostMapping("/logout")
-    public ResponseEntity<String> logoutUser(@RequestHeader("Authorization") String authToken) {
-        userService.logoutUser(authToken);
-        return ResponseEntity.ok("User logged out successfully.");
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody UserUpdateDTO userDto) {
-        userService.updateUser(id, userDto);
-        return ResponseEntity.ok("User updated successfully.");
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
-        return ResponseEntity.ok("User deleted successfully.");
-    }
+//    @PostMapping("/register")
+//    public ResponseEntity<String> registerUser(@RequestBody UserRegistrationDTO userDto) {
+//        User user = userService.registerUser(userDto);
+//        return ResponseEntity.ok("User registered successfully with ID: " + user.getId());
+//    }
+//
+//    @PostMapping("/login")
+//    public ResponseEntity<String> loginUser(@RequestBody UserLoginDTO userDto) {
+//        String token = userService.loginUser(userDto);
+//        return ResponseEntity.ok(token);
+//    }
+//
+//    @PostMapping("/logout")
+//    public ResponseEntity<String> logoutUser(@RequestHeader("Authorization") String authToken) {
+//        userService.logoutUser(authToken);
+//        return ResponseEntity.ok("User logged out successfully.");
+//    }
+//
+//    @PutMapping("/{id}")
+//    public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody UserUpdateDTO userDto) {
+//        userService.updateUser(id, userDto);
+//        return ResponseEntity.ok("User updated successfully.");
+//    }
+//
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+//        userService.deleteUser(id);
+//        return ResponseEntity.ok("User deleted successfully.");
+//    }
 }

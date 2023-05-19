@@ -11,5 +11,5 @@ import java.util.List;
 public interface FolderRepository extends JpaRepository<Folder, Long> {
     List<Folder> findByUser(User user);
 
-    void deleteFolder(Folder folder);
+    List<Folder> findAllByUser(User user);
 }

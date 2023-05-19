@@ -1,6 +1,8 @@
 package com.example.mymail2.model;
 
 import jakarta.persistence.*;
+
+import java.awt.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -28,6 +30,9 @@ public class Mail {
 
     @Column
     private LocalDateTime timestamp;
+
+    @Column
+    private Long attachmentId;
 
     // Constructors, Getters, and Setters
 
@@ -100,4 +105,11 @@ public class Mail {
         this.timestamp = timestamp;
     }
 
+    public Long getAttachmentId() {
+        return attachmentId;
+    }
+
+    public void setAttachmentId(Long attachmentId) {
+        this.attachmentId = attachmentId;
+    }
 }

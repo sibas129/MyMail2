@@ -9,5 +9,4 @@ public class MyMail2Application {
     public static void main(String[] args) {
         SpringApplication.run(MyMail2Application.class, args);
     }
-
 }

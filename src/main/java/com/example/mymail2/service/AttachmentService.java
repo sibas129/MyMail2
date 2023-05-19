@@ -15,18 +15,18 @@ public class AttachmentService {
     }
 
     public Attachment getAttachmentById(Long id) {
-        return attachmentRepository.getAttachmentById(id);
+        return attachmentRepository.getReferenceById(id);
     }
 
-    public List<Attachment> getAttachmentsForMail(Mail mail) {
-        return attachmentRepository.getAttachmentsForMail(mail);
-    }
+//    public List<Attachment> getAttachmentsForMail(Mail mail) {
+//        return attachmentRepository.findAllById(mail.getAttachmentId());
+//    }
 
-    public Attachment uploadAttachment(Attachment attachment) {
-        return attachmentRepository.uploadAttachment(attachment);
-    }
+//    public Attachment uploadAttachment(Attachment attachment) {
+//        return attachmentRepository.uploadAttachment(attachment);
+//    }
 
     public void deleteAttachment(Attachment attachment) {
-        attachmentRepository.deleteAttachment(attachment);
+        attachmentRepository.delete(attachment);
     }
 }
