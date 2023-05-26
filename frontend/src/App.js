@@ -1,78 +1,44 @@
-import React, { useState } from 'react';
-import Container from 'react-bootstrap/Container';
-import Card from 'react-bootstrap/Card';
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
+import React, { useState, useEffect } from 'react';
+import Header from './layout/Header';
+import Sidebar from './layout/Sidebar';
+import EmailList from './page/EmailList';
+import EmailView from './page/EmailView';
+import EmailCompose from './page/EmailCompose';
+
 
 function App() {
-  const [email, setEmail] = useState('');
-  const [subject, setSubject] = useState('');
-  const [message, setMessage] = useState('');
+  const [emails, setEmails] = useState([]);
+  const [selectedEmail, setSelectedEmail] = useState(null);
+  const [composeOpen, setComposeOpen] = useState(false);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  useEffect(() => {
+    // Fetch emails from API or data source here
+    // For the demo, we'll just use hardcoded data
+    const dummyEmails = [
+      { id: 1, sender: 'John Doe', subject: 'Hello there', date: '2022-06-15', content: 'Welcome to our mail client' },
+      { id: 2, sender: 'Jane Doe', subject: 'RE: Hello there', date: '2022-06-16', content: 'Thanks for your email!' },
+    ];
+    setEmails(dummyEmails);
+  }, []);
+    
+  const handleSelectEmail = (email) => {
+    setSelectedEmail(email);
+  };
 
-    // Здесь вы можете добавить код для отправки сообщения, например, через API:
-    console.log('Email:', email);
-    console.log('Subject:', subject);
-    console.log('Message:', message);
-
-    setEmail('');
-    setSubject('');
-    setMessage('');
+  const handleComposeToggle = () => {
+    setComposeOpen(!composeOpen);
   };
 
   return (
-    <Container style={{ maxWidth: '800px', marginTop: '50px' }}>
-      <Card style={{ padding: '40px' }}>
-        <h1>Создать и отправить сообщение</h1>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group>
-            <Form.Label>Email получателя</Form.Label>
-            <InputGroup>
-              <InputGroup.Prepend>
-                <InputGroup.Text>@</InputGroup.Text>
-              </InputGroup.Prepend>
-              <Form.Control
-                type="email"
-                placeholder="Введите email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </InputGroup>
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Тема</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Введите тему"
-              value={subject}
-              onChange={(e) => setSubject(e.target.value)}
-              required
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Сообщение</Form.Label>
-            <Form.Control
-              as="textarea"
-              rows={4}
-              placeholder="Введите текст сообщения"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              required
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Control
-              type="submit"
-              value="Отправить сообщение"
-              className="btn btn-primary"
-            />
-          </Form.Group>
-        </Form>
-      </Card>
-    </Container>
+    <div className="app">
+      <Header onComposeClick={handleComposeToggle} />
+      <div className="app-body">
+        <Sidebar />
+        <EmailList emails={emails} onSelectEmail={handleSelectEmail} />
+        {selectedEmail && <EmailView email={selectedEmail} />}
+      </div>
+      {composeOpen && <EmailCompose onClose={handleComposeToggle} />}
+    </div>
   );
 }
 
